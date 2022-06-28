@@ -32,7 +32,8 @@ RUN git clone https://gitlab.com/rc0r/afl-utils && \
 RUN git clone https://github.com/mimicria/afl-cov.git && \
     ln -s /afl-cov/afl-cov /bin/afl-cov
 # Ставим dupmanage/fuzzman
-RUN git -c advice.detachedHead=false clone --depth 1 -b refactor https://github.com/fuzzah/fuzzaide && \
+# RUN git -c advice.detachedHead=false clone --depth 1 -b refactor https://github.com/fuzzah/fuzzaide && \
+RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && pip install .
 # Качаем скрипт для получения html-отчёта о покрытии
 RUN wget https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/utils/prepare-code-coverage-artifact.py -P /bin
