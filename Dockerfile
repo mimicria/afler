@@ -32,12 +32,11 @@ RUN git clone https://gitlab.com/rc0r/afl-utils && \
 RUN git clone https://github.com/mimicria/afl-cov.git && \
     ln -s /afl-cov/afl-cov /bin/afl-cov
 # Ставим dupmanage/fuzzman
-# RUN git -c advice.detachedHead=false clone --depth 1 -b refactor https://github.com/fuzzah/fuzzaide && \
 RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && pip install .
 # Качаем скрипт для получения html-отчёта о покрытии
 RUN wget https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/utils/prepare-code-coverage-artifact.py -P /bin
 # Качаем скрипт для убивания процесса при сборе покрытия
-RUN ls /bin/pre* && wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/kill_proc_after_min.py -P /bin && \
+RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/kill_proc_after_min.py -P /bin && \
     chmod +x /bin/kill_proc_after_min.py && \
     pip3 install psutil
