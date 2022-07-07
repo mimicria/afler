@@ -9,8 +9,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Основные пакеты для сборки
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
-        python3 python3-pip python3-dev gcc \
-        git make gdb strace ltrace zip wget flex bison automake autoconf lcov ninja-build \
+        python3 python3-pip python3-dev gcc g++\
+        git make gdb strace ltrace zip wget flex bison automake autoconf lcov ninja-build cargo \
         cron gnuplot screen psmisc \
         lld llvm llvm-dev clang
 RUN apt-get -y install --no-install-suggests --no-install-recommends \
@@ -35,7 +35,7 @@ RUN git clone https://github.com/mimicria/afl-cov.git && \
 RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && pip install .
 # Качаем скрипт для получения html-отчёта о покрытии
-RUN wget https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/utils/prepare-code-coverage-artifact.py -P /bin
+# RUN wget https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/utils/prepare-code-coverage-artifact.py -P /bin
 # Качаем скрипт для убивания процесса при сборе покрытия
 #RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/kill_proc_after_min.py -P /bin && \
 #    chmod +x /bin/kill_proc_after_min.py && \
