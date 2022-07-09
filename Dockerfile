@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         python3 python3-pip python3-dev gcc g++\
         git make gdb strace ltrace zip wget flex bison automake autoconf lcov ninja-build cargo \
-        cron gnuplot screen psmisc \
+        cron gnuplot screen psmisc nano bzip2 pkg-config \
         lld llvm llvm-dev clang
 RUN apt-get -y install --no-install-suggests --no-install-recommends \
     gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev
@@ -34,6 +34,9 @@ RUN git clone https://github.com/mimicria/afl-cov.git && \
 # Ставим dupmanage/fuzzman
 RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && pip install .
+# Качаем скрипт для получения html-отчёта о ходе фаззинга
+RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
+    chmod +x /bin/aflplotter.py
 # Качаем скрипт для получения html-отчёта о покрытии
 # RUN wget https://raw.githubusercontent.com/llvm/llvm-project/main/llvm/utils/prepare-code-coverage-artifact.py -P /bin
 # Качаем скрипт для убивания процесса при сборе покрытия
