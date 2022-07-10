@@ -22,7 +22,7 @@ RUN cd /AFLplusplus && \
     sed -i 's|cc_params\[cc_par_cnt++\] = "-fsanitize-undefined-trap-on-error";||g' ./src/afl-cc.c && \
     # использовать простые рамки интерфейса AFL++
     sed -i 's|#define FANCY_BOXES|// #define FANCY_BOXES|g' ./include/config.h && \
-    make STATIC=1 distrib && make install
+    make STATIC=1 source-only && make install
 RUN sysctl -w kernel.core_pattern="core-%e" && \
     echo -e "[+] Test run ok"
 # Ставим afl-collect и exploitable
