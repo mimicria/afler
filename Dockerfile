@@ -16,13 +16,13 @@ RUN apt-get update && \
 RUN apt-get -y install --no-install-suggests --no-install-recommends \
     gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev
 # Ставим AFL++
-RUN git -c advice.detachedHead=false clone --depth 1 https://github.com/AFLplusplus/AFLplusplus /AFLplusplus
+RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus
 RUN cd /AFLplusplus && \
     # включить сообщения об ошибках санитайзера UBSAN
     sed -i 's|cc_params\[cc_par_cnt++\] = "-fsanitize-undefined-trap-on-error";||g' ./src/afl-cc.c && \
     # использовать простые рамки интерфейса AFL++
     sed -i 's|#define FANCY_BOXES|// #define FANCY_BOXES|g' ./include/config.h && \
-    make STATIC=1 source-only && make install
+    make source-only && make install
 RUN sysctl -w kernel.core_pattern="core-%e" && \
     echo -e "[+] Test run ok"
 # Ставим afl-collect и exploitable
