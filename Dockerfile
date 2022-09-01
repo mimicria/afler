@@ -26,7 +26,7 @@ RUN cd /AFLplusplus && \
 RUN sysctl -w kernel.core_pattern="core-%e" && \
     echo -e "[+] Test run ok"
 # Ставим afl-collect и exploitable
-RUN git clone https://gitlab.com/rc0r/afl-utils && \
+RUN git clone https://github.com/mimicria/afl-utils.git && \
     cd afl-utils && python3 -m pip install twitter && python3 setup.py install    
 # Ставим afl-cov
 RUN git clone https://github.com/mimicria/afl-cov.git && \
