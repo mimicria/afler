@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 AS base
+FROM ubuntu:22.04
 LABEL maintainer="vova@cbi57.ru"
 LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
 
@@ -26,12 +26,14 @@ RUN cd /AFLplusplus && \
 RUN sysctl -w kernel.core_pattern="core-%e" && \
     echo -e "[+] Test run ok"
 # Ставим afl-collect и exploitable
+#RUN git clone https://github.com/mimicria/exploitable.git && \
+#    cd exploitable && python3 setup.py install
 RUN git clone https://github.com/mimicria/afl-utils.git && \
-    cd afl-utils && python3 -m pip install twitter && python3 setup.py install    
+    cd afl-utils && python3 -m pip install twitter && python3 setup.py install
 # Ставим afl-cov
 RUN git clone https://github.com/mimicria/afl-cov.git && \
     ln -s /afl-cov/afl-cov /bin/afl-cov
-# Ставим dupmanage/fuzzman
+# Ставим fuzzman
 RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && pip install .
 # Качаем скрипт для получения html-отчёта о ходе фаззинга
