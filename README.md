@@ -1,4 +1,4 @@
-## Using:
+## Usage:
 ```
 docker run -it mimicria/afler:ub2204 /bin/bash
 ```
