@@ -20,6 +20,6 @@ Usable utilities inside:
 |Centos 7 g4	|4.8.5		|-				|344.82 MB				|
 
 ## Extra
-By default in `Centos 7 g4` GCC 4.8.5. 
+By default in `Centos 7` GCC 4.8.5. 
 
 To enable 10.2.1 enter `source scl_source enable devtoolset-10` before building.
