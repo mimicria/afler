@@ -16,6 +16,10 @@ Usable utilities inside:
 |Ubuntu 22.04	|11.3		|14.0			|868.82 MB				|
 |Ubuntu 20.04	|9.4.0		|10.0.0			|834.6 MB				|
 |Ubuntu 18.04	|7.5.0		|6.0.0			|847.11 MB				|
-|Centos 7		|11.3		|14.0			|?? MB					|
-|Centos 7 g4	|11.3		|14.0			|344.82 MB				|
+|Centos 7		|10.2.1		|16.0.0			|2.1 GB					|
+|Centos 7 g4	|4.8.5		|-				|344.82 MB				|
 
+## Extra
+By default in `Centos 7 g4` GCC 4.8.5. 
+
+To enable 10.2.1 enter `source scl_source enable devtoolset-10` before building.
