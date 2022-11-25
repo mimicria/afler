@@ -2,7 +2,7 @@
 ```
 docker run -it mimicria/afler:ub2204 /bin/bash
 ```
-> /bin/sh in Alpine
+> `/bin/sh` in Alpine
 
 Usable utilities inside:
 - afl-fuzz
