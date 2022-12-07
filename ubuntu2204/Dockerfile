@@ -14,7 +14,8 @@ RUN apt-get update && \
         cron gnuplot screen psmisc nano bzip2 pkg-config \
         lld llvm llvm-dev clang
 RUN apt-get -y install --no-install-suggests --no-install-recommends \
-    gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev
+    gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev && \
+    rm -rf /var/lib/apt/lists/*
 # Ставим AFL++
 RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
     cd /AFLplusplus && \
@@ -24,8 +25,6 @@ RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
     sed -i 's|#define FANCY_BOXES|// #define FANCY_BOXES|g' ./include/config.h && \
     make source-only && make install && \
     rm -rf /AFLplusplus
-RUN sysctl -w kernel.core_pattern="core-%e" && \
-    echo -e "[+] Test run ok"
 # Ставим afl-collect и exploitable
 RUN git clone https://github.com/mimicria/afl-utils.git && \
     cd afl-utils && python3 -m pip install twitter && python3 setup.py install && \
