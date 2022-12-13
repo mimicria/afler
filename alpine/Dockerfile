@@ -4,13 +4,13 @@ LABEL description="Докер контейнер с инструментами �
 
 # Add base packages
 RUN apk update && \
-    apk add build-base python3-dev automake cmake git flex bison cargo lld llvm llvm-dev clang gmp-dev
+    apk add build-base python3-dev automake cmake git flex bison lld llvm llvm-dev clang gmp-dev
 # Add AFLplusplus latest
 RUN git clone https://github.com/AFLplusplus/AFLplusplus.git /AFL && \
     cd /AFL/ && \
     sed -i 's|#include "config.h"|#include <linux/limits.h>\n#include "config.h"|g' ./src/afl-ld-lto.c && \
     sed -i 's|#define FANCY_BOXES|// #define FANCY_BOXES|g' ./include/config.h && \
-    make source-only && make install && \
+    make source-only NO_NYX=1 && make install && \
     rm -rf /AFL
 # Add python3 pip
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
@@ -25,7 +25,7 @@ RUN git clone https://github.com/mimicria/afl-cov.git && \
     ln -s /afl-cov/afl-cov /bin/afl-cov
 # Add fuzzman
 RUN git clone https://github.com/mimicria/fuzzaide.git && \
-    cd /fuzzaide && pip install . && \
+    cd /fuzzaide && python -m pip install . && \
     rm -rf /fuzzaide
 # Add some scripts
 RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
