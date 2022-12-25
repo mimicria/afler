@@ -43,4 +43,4 @@ RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter
     chmod +x /bin/aflplotter.py
 # script for casr-collect
 RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
-    chmod +x /bin/casr-collect.py
+    chmod +x /bin/casr-collect.py && python3 -m pip install termcolor
