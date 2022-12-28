@@ -1,3 +1,5 @@
+[![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
+
 ## Usage:
 ```
 docker run -it mimicria/afler:ub2204 /bin/bash
