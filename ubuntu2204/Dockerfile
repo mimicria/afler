@@ -10,7 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         python3 python3-pip python3-dev gcc g++\
-        git make gdb strace ltrace zip wget flex bison automake autoconf lcov gnuplot psmisc bzip2 pkg-config cargo \
+        git make gdb strace ltrace zip wget curl flex bison automake autoconf lcov gnuplot psmisc bzip2 pkg-config \
         lld llvm llvm-dev clang
 RUN apt-get -y install --no-install-suggests --no-install-recommends \
     gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev && \
@@ -36,8 +36,9 @@ RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && pip install . && \
     rm -rf /fuzzaide
 # casr
-RUN cargo install casr
 ENV PATH="${PATH}:/root/.cargo/bin"
+RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
+    cargo install casr
 # script for afl-plot
 RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
     chmod +x /bin/aflplotter.py
