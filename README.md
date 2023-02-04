@@ -16,7 +16,7 @@ Usable utilities inside:
 |OS				|GCC version|Clang version	|Image size (compressed)|
 |---------------|-----------|---------------|-----------------------|
 |Alpine			|12.2.1		|15.0.5			|283.15 MB				|
-|Ubuntu 22.04	|11.3		|14.0			|702.56 MB				|
+|Ubuntu 22.04	|11.3		|14.0			|818.81 MB				|
 |Ubuntu 20.04	|9.4.0		|10.0.0			|429.48 MB				|
 |Ubuntu 18.04	|7.5.0		|6.0.0			|443.48 MB				|
 |Centos 7		|10.2.1		|16.0.0			|2.1 GB					|
