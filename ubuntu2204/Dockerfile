@@ -26,7 +26,7 @@ RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
     rm -rf /AFLplusplus
 # afl-collect with exploitable
 RUN git clone https://github.com/mimicria/afl-utils.git && \
-    cd afl-utils && python3 -m pip install twitter && python3 setup.py install && \
+    cd afl-utils && python3 setup.py install && \
     rm -rf /afl-utils
 # afl-cov
 RUN git clone https://github.com/mimicria/afl-cov.git && \
@@ -38,8 +38,7 @@ RUN git clone https://github.com/mimicria/fuzzaide.git && \
 # casr
 ENV PATH="${PATH}:/root/.cargo/bin"
 RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
-    cargo install casr && \
-    python3 -m pip install numpy scipy
+    cargo install casr
 # script for afl-plot
 RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
     chmod +x /bin/aflplotter.py
