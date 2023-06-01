@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-LABEL maintainer="vova@cbi57.ru"
+LABEL maintainer="mimicria@cbi57.ru"
 LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
 
 # TimeZone

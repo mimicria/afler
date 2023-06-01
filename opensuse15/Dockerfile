@@ -1,5 +1,5 @@
 FROM opensuse/leap:15.4
-LABEL maintainer="vova@cbi57.ru"
+LABEL maintainer="mimicria@cbi57.ru"
 LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
 
 RUN zypper -n install python3 python3-pip python3-devel gcc gcc-c++\
