@@ -8,19 +8,20 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Additional packages
 RUN yum group install -y "Development Tools"
-RUN yum install -y yum-utils rpmdevtools scl-utils openssl-devel wget rsync git flex bison automake libcap-devel python3 python3-pip python3-devel centos-release-scl-rh
+RUN yum install -y yum-utils rpmdevtools scl-utils wget rsync git flex bison automake python3 python3-pip python3-devel centos-release-scl-rh openssl-devel libcap-devel
 RUN yum --enablerepo=centos-sclo-rh-testing install -y devtoolset-10 devtoolset-10-gcc-plugin-devel devtoolset-10-gcc-c++
 
 # Cmake
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0.tar.gz && \
-    tar -xvzf cmake-3.24.0.tar.gz && rm -rf cmake-3.24.0.tar.gz
-RUN cd cmake-3.24.0 && source scl_source enable devtoolset-10 && ./bootstrap && make && make install && rm -rf /cmake-3.24.0
+    tar -xvzf cmake-3.24.0.tar.gz && rm -rf cmake-3.24.0.tar.gz && \
+    cd cmake-3.24.0 && source scl_source enable devtoolset-10 && ./bootstrap && make && make install && rm -rf /cmake-3.24.0
 
 # LLVM
-RUN git -c advice.detachedHead=false clone --depth 1  https://github.com/llvm/llvm-project.git 
-RUN cd llvm-project && mkdir build && cd build && \
-        source scl_source enable devtoolset-10 && cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && \
-        make && make install && rm -rf /llvm-project
+RUN wget https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz && \
+    tar -xf llvmorg-12.0.1.tar.gz && \
+    cd llvm-project-llvmorg-12.0.1 && mkdir build && cd build && \
+    source scl_source enable devtoolset-10 && cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && \
+    make && make install && rm -rf /llvm-project-llvmorg-12.0.1
 
 # AFL++
 RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus
@@ -33,7 +34,7 @@ RUN cd /AFLplusplus && \
 
 # afl-collect & exploitable
 RUN git clone https://github.com/mimicria/afl-utils.git && \
-    cd afl-utils && python3 -m pip install twitter && python3 setup.py install && \
+    cd afl-utils && python3 setup.py install && \
     rm -rf /afl-utils
 #  afl-cov
 RUN git clone https://github.com/mimicria/afl-cov.git && \
