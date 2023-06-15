@@ -20,7 +20,7 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0
 RUN wget https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-12.0.1.tar.gz && \
     tar -xf llvmorg-12.0.1.tar.gz && \
     cd llvm-project-llvmorg-12.0.1 && mkdir build && cd build && \
-    source scl_source enable devtoolset-10 && cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && \
+    source scl_source enable devtoolset-10 && cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;compiler-rt;lld;clang-tools-extra" -G "Unix Makefiles" ../llvm && \
     make && make install && rm -rf /llvm-project-llvmorg-12.0.1
 
 # AFL++
