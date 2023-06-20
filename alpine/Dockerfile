@@ -4,7 +4,7 @@ LABEL description="Докер контейнер с инструментами �
 
 # Add base packages
 RUN apk update && \
-    apk add build-base python3-dev automake cmake git flex bison lld llvm llvm-dev clang gmp-dev
+    apk add build-base python3-dev automake cmake git flex bison lld llvm llvm-dev clang gmp-dev curl
 # Add AFLplusplus latest
 RUN git clone https://github.com/AFLplusplus/AFLplusplus.git /AFL && \
     cd /AFL/ && \
@@ -18,7 +18,7 @@ RUN python3 -m ensurepip && \
     pip3 install --no-cache --upgrade pip setuptools
 # Add afl-collect
 RUN git clone https://github.com/mimicria/afl-utils.git && \
-    cd afl-utils && python3 -m pip install twitter && python3 setup.py install && \
+    cd afl-utils && python3 setup.py install && \
     rm -rf /afl-utils
 # Add afl-cov
 RUN git clone https://github.com/mimicria/afl-cov.git && \
@@ -27,6 +27,12 @@ RUN git clone https://github.com/mimicria/afl-cov.git && \
 RUN git clone https://github.com/mimicria/fuzzaide.git && \
     cd /fuzzaide && python -m pip install . && \
     rm -rf /fuzzaide
-# Add some scripts
+ENV PATH="${PATH}:/root/.cargo/bin"
+RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
+    cargo install casr
+# script for afl-plot
 RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
     chmod +x /bin/aflplotter.py
+# script for casr-collect
+RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
+    chmod +x /bin/casr-collect.py && python -m pip install termcolor
