@@ -40,8 +40,8 @@ ENV PATH="${PATH}:/root/.cargo/bin"
 RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
     cargo install casr
 # script for afl-plot
-RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
+RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
     chmod +x /bin/aflplotter.py
 # script for casr-collect
-RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
+RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
     chmod +x /bin/casr-collect.py && python3 -m pip install termcolor
