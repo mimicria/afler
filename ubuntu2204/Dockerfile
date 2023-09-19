@@ -17,6 +17,9 @@ RUN apt-get -y install --no-install-suggests --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 # AFL++
 RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
+    cd /AFLplusplus/src && \
+    wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/afl_patch_scr.py && \
+    python3 afl_patch_scr.py && \
     cd /AFLplusplus && \
     # UBSAN error messages enable
     sed -i 's|cc_params\[cc_par_cnt++\] = "-fsanitize-undefined-trap-on-error";||g' ./src/afl-cc.c && \
@@ -41,7 +44,7 @@ RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profil
     cargo install casr
 # script for afl-plot
 RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
-    chmod +x /bin/aflplotter.py
+    chmod +x /bin/aflplotter.py && ls
 # script for casr-collect
 RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
     chmod +x /bin/casr-collect.py && python3 -m pip install termcolor

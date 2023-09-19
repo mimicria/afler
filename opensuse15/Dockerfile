@@ -4,7 +4,7 @@ LABEL description="Докер контейнер с инструментами �
 
 RUN zypper -n install python3 python3-pip python3-devel gcc gcc-c++\
         git make gdb strace ltrace zip wget curl flex bison automake autoconf lcov gnuplot bzip2 pkg-config \
-        lld llvm llvm-devel clang rpm-build
+        lld llvm llvm-devel clang rpm-build screen
 # AFL++
 RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
     cd /AFLplusplus && \
