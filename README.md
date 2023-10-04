@@ -11,11 +11,12 @@ Usable utilities inside:
 - [afl-cov](https://github.com/mrash/afl-cov)
 - [afl-collect](https://gitlab.com/rc0r/afl-utils)
 - [fuzzman](https://github.com/fuzzah/fuzzaide)
-- [casr](https://github.com/ispras/casr) (experimental in Ubuntu 22.04 & Alpine)
+- [casr](https://github.com/ispras/casr)
 
 |OS				|GCC version|Clang version	|Image size (compressed)|
 |---------------|-----------|---------------|-----------------------|
 |Alpine			|12.2.1		|15.0.5			|533.72 MB				|
+|Alt			|10.3.1		|14.0.6			|1.61 GB				|
 |Ubuntu 22.04	|11.3		|14.0			|724.56 MB				|
 |Ubuntu 20.04	|9.4.0		|10.0.0			|429.48 MB				|
 |Ubuntu 18.04	|7.5.0		|6.0.0			|443.48 MB				|
