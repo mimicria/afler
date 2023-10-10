@@ -12,12 +12,13 @@ Usable utilities inside:
 - [afl-collect](https://gitlab.com/rc0r/afl-utils)
 - [fuzzman](https://github.com/fuzzah/fuzzaide)
 - [casr](https://github.com/ispras/casr)
+- [afltriage](https://github.com/quic/AFLTriage)
 
 |OS				|GCC version|Clang version	|Image size (compressed)|
 |---------------|-----------|---------------|-----------------------|
 |Alpine			|12.2.1		|15.0.5			|533.72 MB				|
 |Alt			|10.3.1		|14.0.6			|1.61 GB				|
-|Ubuntu 22.04	|11.3		|14.0			|724.56 MB				|
+|Ubuntu 22.04	|11.3		|14.0			|733.72 MB				|
 |Ubuntu 20.04	|9.4.0		|10.0.0			|429.48 MB				|
 |Ubuntu 18.04	|7.5.0		|6.0.0			|443.48 MB				|
 |Centos 7		|10.2.1		|12.0.1			|1.75 GB					|

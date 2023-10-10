@@ -42,9 +42,13 @@ RUN git clone https://github.com/mimicria/fuzzaide.git && \
 ENV PATH="${PATH}:/root/.cargo/bin"
 RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
     cargo install casr
+#afltriage
+RUN git clone https://github.com/quic/AFLTriage.git && \
+    cd /AFLTriage && cargo install --path . && \
+    rm -rf /AFLTriage
 # script for afl-plot
 RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
-    chmod +x /bin/aflplotter.py && ls
+    chmod +x /bin/aflplotter.py
 # script for casr-collect
 RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
     chmod +x /bin/casr-collect.py && python3 -m pip install termcolor
