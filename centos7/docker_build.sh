@@ -1,3 +1,3 @@
 #!/bin/bash
-docker build -t mimicria/afler:cent7 -f Dockerfile .
-#docker push mimicria/afler:cent7
+docker build --no-cache=True -t mimicria/afler:cent7 -f Dockerfile . |& tee ./build.log
+docker push mimicria/afler:cent7

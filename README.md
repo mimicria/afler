@@ -21,7 +21,7 @@ Usable utilities inside:
 |Ubuntu 22.04	|11.3		|14.0			|733.72 MB				|
 |Ubuntu 20.04	|9.4.0		|10.0.0			|429.48 MB				|
 |Ubuntu 18.04	|7.5.0		|6.0.0			|443.48 MB				|
-|Centos 7		|10.2.1		|12.0.1			|1.75 GB					|
+|Centos 7		|10.2.1		|14.0.6			|2.14 GB					|
 |Centos 7 g4	|4.8.5		|-				|344.82 MB				|
 
 ## Extra
