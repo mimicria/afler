@@ -24,6 +24,7 @@ Usable utilities inside:
 |OpenSUSE 15.4	|7.5.0		|13.0.1			|857.32 MB				|
 |Centos 7		|10.2.1		|14.0.6			|2.14 GB					|
 |Centos 7 g4	|4.8.5		|-				|344.82 MB				|
+|Centos 8		|8.5.0		|14.0.6			|1.91 GB				|
 
 ## Extra
 By default in `Centos 7` GCC 4.8.5. 
