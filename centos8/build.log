@@ -1,0 +1,50 @@
+Sending build context to Docker daemon  6.144kB
+Step 1/16 : FROM centos:latest AS base
+ ---> 5d0da3dc9764
+Step 2/16 : LABEL maintainer="mimicria@cbi57.ru"
+ ---> Using cache
+ ---> 0fc0885cef47
+Step 3/16 : LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
+ ---> Using cache
+ ---> 4bb0261203c0
+Step 4/16 : ENV TZ=Europe/Moscow
+ ---> Using cache
+ ---> 9140e8842f1b
+Step 5/16 : RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ ---> Using cache
+ ---> 4ead3bfb99de
+Step 6/16 : RUN cd /etc/yum.repos.d/ &&     sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* &&     sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-* &&     yum update -y
+ ---> Using cache
+ ---> 2953f8d7451b
+Step 7/16 : RUN yum group install -y "Development Tools" &&     yum install -y yum-utils rpmdevtools scl-utils wget rsync git flex bison automake python3 python3-pip python3-devel openssl-devel libcap-devel &&     yum install -y cmake
+ ---> Using cache
+ ---> 578d26c32357
+Step 8/16 : RUN wget -q https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.6/llvm-project-14.0.6.src.tar.xz &&     tar -xf llvm-project-14.0.6.src.tar.xz &&     rm -f llvm-project-14.0.6.src.tar.xz &&     cd llvm-project-14.0.6.src && mkdir build && cd build &&     cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;compiler-rt;lld;clang-tools-extra" -G "Unix Makefiles" ../llvm &&     make && make install && rm -rf /llvm-project-14.0.6.src
+ ---> Using cache
+ ---> 018706623e34
+Step 9/16 : RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus &&     cd /AFLplusplus/src &&     wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/afl_patch_scr.py &&     python3 afl_patch_scr.py &&     cd /AFLplusplus &&     sed -i 's|cc_params\[cc_par_cnt++\] = "-fsanitize-undefined-trap-on-error";||g' ./src/afl-cc.c &&     sed -i 's|#define FANCY_BOXES|// #define FANCY_BOXES|g' ./include/config.h &&     make source-only NO_NYX=1 && make install && rm -rf /AFLplusplus
+ ---> Using cache
+ ---> 6e31c99bf459
+Step 10/16 : RUN python3 -m pip install --upgrade pip
+ ---> Using cache
+ ---> 880ed6803b38
+Step 11/16 : RUN git clone https://github.com/mimicria/afl-utils.git &&     cd afl-utils && python3 setup.py install &&     rm -rf /afl-utils
+ ---> Using cache
+ ---> 93d5a8dfc417
+Step 12/16 : RUN git clone https://github.com/mimicria/afl-cov.git &&     ln -s /afl-cov/afl-cov /bin/afl-cov
+ ---> Using cache
+ ---> ad138eba3891
+Step 13/16 : ENV PATH="${PATH}:/root/.cargo/bin"
+ ---> Using cache
+ ---> 32c0a5dee937
+Step 14/16 : RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal &&     cargo install casr
+ ---> Using cache
+ ---> 4869531cc3ba
+Step 15/16 : RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin &&     chmod +x /bin/aflplotter.py
+ ---> Using cache
+ ---> 19b33a804e39
+Step 16/16 : RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin &&     chmod +x /bin/casr-collect.py && python3 -m pip install termcolor
+ ---> Using cache
+ ---> 4af11950c122
+Successfully built 4af11950c122
+Successfully tagged mimicria/afler:cent8
