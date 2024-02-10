@@ -2,9 +2,10 @@ FROM opensuse/leap:15.4
 LABEL maintainer="mimicria@cbi57.ru"
 LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
 
-RUN zypper -n install python3 python3-pip python3-devel gcc gcc-c++\
+RUN zypper -n install --no-recommends python3 python3-pip python3-devel gcc gcc-c++\
         git make gdb strace ltrace zip wget curl flex bison automake autoconf lcov gnuplot bzip2 pkg-config \
-        lld llvm llvm-devel clang rpm-build screen
+        lld llvm llvm-devel clang rpm-build screen && \
+    zypper clean --all
 # AFL++
 RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
     cd /AFLplusplus/src && \
