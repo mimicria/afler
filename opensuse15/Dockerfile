@@ -20,6 +20,10 @@ RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
 # afl-cov
 RUN git clone https://github.com/mimicria/afl-cov.git && \
     ln -s /afl-cov/afl-cov /bin/afl-cov
+# afl-collect with exploitable
+RUN git clone https://github.com/mimicria/afl-utils.git && \
+    cd afl-utils && python3 setup.py install && \
+    rm -rf /afl-utils
 # casr
 ENV PATH="${PATH}:/root/.cargo/bin"
 RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
@@ -27,3 +31,6 @@ RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profil
 # script for casr-collect
 RUN wget https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/casr-collect.py -P /bin && \
     chmod +x /bin/casr-collect.py && python3 -m pip install termcolor
+# script for afl-plot
+RUN wget -q https://raw.githubusercontent.com/mimicria/fuzz_scripts/main/aflplotter.py -P /bin && \
+    chmod +x /bin/aflplotter.py
