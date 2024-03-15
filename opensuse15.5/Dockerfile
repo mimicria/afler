@@ -2,7 +2,12 @@ FROM opensuse/leap:15.5
 LABEL maintainer="mimicria@mail.ru"
 LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
 
-RUN zypper -n install --no-recommends python3 python3-pip python3-devel gcc gcc-c++\
+RUN cd /etc/zypp/repos.d && \
+    rm -rf repo-backports-debug-update.repo repo-backports-update.repo repo-debug-non-oss.repo repo-debug-update-non-oss.repo \
+        repo-debug-update.repo repo-debug.repo repo-non-oss.repo repo-sle-debug-update.repo repo-sle-update.repo repo-source.repo \
+        repo-update-non-oss.repo repo-update.repo && \
+    zypper ref && \
+    zypper -n install --no-recommends python3 python3-pip python3-devel gcc gcc-c++\
         git make gdb strace ltrace zip wget curl flex bison automake autoconf lcov gnuplot bzip2 pkg-config \
         lld llvm llvm-devel clang rpm-build screen && \
     zypper clean --all
