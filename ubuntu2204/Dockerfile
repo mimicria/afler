@@ -11,10 +11,11 @@ RUN apt-get update && \
     apt-get -y install --no-install-suggests --no-install-recommends \
         python3 python3-pip python3-dev gcc g++\
         git make gdb strace ltrace zip wget curl flex bison automake autoconf lcov gnuplot psmisc bzip2 pkg-config \
-        lld llvm llvm-dev clang
+        lld-14 llvm-14 llvm-14-dev clang-14
 RUN apt-get -y install --no-install-suggests --no-install-recommends \
     gcc-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-plugin-dev libstdc++-$(gcc --version|head -n1|sed 's/\..*//'|sed 's/.* //')-dev && \
     rm -rf /var/lib/apt/lists/*
+ENV LLVM_CONFIG=/usr/lib/llvm-14/bin/llvm-config
 # AFL++
 RUN git clone https://github.com/AFLplusplus/AFLplusplus /AFLplusplus && \
     cd /AFLplusplus/src && \
