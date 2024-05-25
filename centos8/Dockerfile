@@ -1,5 +1,5 @@
 FROM centos:latest AS base
-LABEL maintainer="mimicria@cbi57.ru"
+LABEL maintainer="mimicria@mail.ru"
 LABEL description="Докер контейнер с инструментами для фаззинга с применением AFL++"
 
 # TimeZone settings
