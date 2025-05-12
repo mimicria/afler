@@ -49,6 +49,9 @@ ENV PATH="${PATH}:/root/.cargo/bin"
 RUN curl https://sh.rustup.rs | sh -s -- -y --default-toolchain=nightly --profile=minimal && \
     cargo install casr
 
+# afl-runner [NEW alter fuzzman :: REMOVED AS UNUSABLE]
+#RUN cargo install afl_runner
+
 #afltriage
 RUN git clone https://github.com/quic/AFLTriage.git && \
     cd /AFLTriage && cargo install --path . && \
